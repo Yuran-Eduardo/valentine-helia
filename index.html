@@ -205,6 +205,161 @@
             transform: translateY(0);
         }
 
+        .button-quiz {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+            margin-top: 15px;
+            margin-left: 10px;
+        }
+
+        .button-quiz:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(245, 87, 108, 0.6);
+        }
+
+        .button-quiz:active {
+            transform: translateY(0);
+        }
+
+        /* Quiz section */
+        .quiz-container {
+            display: none;
+            margin-top: 30px;
+            animation: slideIn 0.5s ease-out;
+            background: linear-gradient(135deg, #e0f7ff 0%, #f0e7ff 100%);
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .quiz-container.show {
+            display: block;
+        }
+
+        .quiz-container h2 {
+            color: #667eea;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .question-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .question-text {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 2px solid transparent;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: #333;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            transform: translateX(5px);
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.completed {
+            background: #667eea;
+            transform: scale(1.2);
+        }
+
+        .progress-dot.active {
+            background: #f5576c;
+            transform: scale(1.4);
+        }
+
+        .result-card {
+            display: none;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .result-card.show {
+            display: block;
+        }
+
+        .result-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .destination-reveal {
+            font-size: 48px;
+            margin: 20px 0;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .result-message {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
         /* Hidden invitation section */
         .invitation {
             display: none;
@@ -402,6 +557,129 @@
                 🍽️ Special Invitation
             </button>
             
+            <button class="button-quiz" onclick="showQuiz()">
+                🎯 Take Our Quiz!
+            </button>
+            
+            <div class="quiz-container" id="quizContainer">
+                <h2>Let's Play a Game! 🎮</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                    Answer these fun questions and discover a special surprise at the end! 💫
+                </p>
+                
+                <div class="quiz-progress" id="quizProgress">
+                    <div class="progress-dot active"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                </div>
+                
+                <!-- Question 1 -->
+                <div class="question-card active" data-question="1">
+                    <div class="question-text">💕 What's my favorite thing about you?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="nextQuestion(1, 'paris')">Your beautiful smile that lights up my day</div>
+                        <div class="quiz-option" onclick="nextQuestion(1, 'rome')">The way you always make me laugh</div>
+                        <div class="quiz-option" onclick="nextQuestion(1, 'madrid')">Your kind and caring heart</div>
+                        <div class="quiz-option" onclick="nextQuestion(1, 'amsterdam')">Everything about you!</div>
+                    </div>
+                </div>
+                
+                <!-- Question 2 -->
+                <div class="question-card" data-question="2">
+                    <div class="question-text">🌟 Pick your ideal date night:</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="nextQuestion(2, 'paris')">Romantic dinner under the stars</div>
+                        <div class="quiz-option" onclick="nextQuestion(2, 'amsterdam')">Cozy movie night with snacks</div>
+                        <div class="quiz-option" onclick="nextQuestion(2, 'rome')">Adventure and exploring new places</div>
+                        <div class="quiz-option" onclick="nextQuestion(2, 'madrid')">Dancing the night away</div>
+                    </div>
+                </div>
+                
+                <!-- Question 3 -->
+                <div class="question-card" data-question="3">
+                    <div class="question-text">🎨 Which describes you best?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="nextQuestion(3, 'paris')">Elegant and sophisticated</div>
+                        <div class="quiz-option" onclick="nextQuestion(3, 'rome')">Passionate and artistic</div>
+                        <div class="quiz-option" onclick="nextQuestion(3, 'madrid')">Fun-loving and energetic</div>
+                        <div class="quiz-option" onclick="nextQuestion(3, 'amsterdam')">Laid-back and easygoing</div>
+                    </div>
+                </div>
+                
+                <!-- Question 4 -->
+                <div class="question-card" data-question="4">
+                    <div class="question-text">🍳 What's your perfect morning breakfast?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="nextQuestion(4, 'paris')">Fresh omelette with baguette and cheese</div>
+                        <div class="quiz-option" onclick="nextQuestion(4, 'madrid')">Hearty Spanish tortilla and jamón</div>
+                        <div class="quiz-option" onclick="nextQuestion(4, 'rome')">Eggs, prosciutto, and fresh bread</div>
+                        <div class="quiz-option" onclick="nextQuestion(4, 'amsterdam')">Dutch breakfast with eggs, cheese, and meats</div>
+                    </div>
+                </div>
+                
+                <!-- Question 5 -->
+                <div class="question-card" data-question="5">
+                    <div class="question-text">✨ Complete this: "Our love is..."</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="nextQuestion(5, 'paris')">Like a fairytale romance</div>
+                        <div class="quiz-option" onclick="nextQuestion(5, 'rome')">Timeless and eternal</div>
+                        <div class="quiz-option" onclick="nextQuestion(5, 'madrid')">Full of passion and fire</div>
+                        <div class="quiz-option" onclick="nextQuestion(5, 'amsterdam')">Free-spirited and adventurous</div>
+                    </div>
+                </div>
+                
+                <!-- Results -->
+                <div class="result-card" id="resultParis">
+                    <h3>🗼 Your Next Adventure Awaits! 🗼</h3>
+                    <div class="destination-reveal">Paris, France! 🇫🇷</div>
+                    <div class="result-message">
+                        The City of Love is calling us, Helia! Get ready for romantic walks along the Seine, 
+                        the Eiffel Tower sparkling at night, croissants for breakfast, and creating the most 
+                        beautiful memories together in the most romantic city in the world! 💕
+                        <br><br>
+                        <strong style="font-size: 24px;">We're going to Paris! ✈️❤️</strong>
+                    </div>
+                </div>
+                
+                <div class="result-card" id="resultRome">
+                    <h3>🏛️ Your Next Adventure Awaits! 🏛️</h3>
+                    <div class="destination-reveal">Rome, Italy! 🇮🇹</div>
+                    <div class="result-message">
+                        The Eternal City is waiting for us! Get ready for amazing pasta, throwing coins in the 
+                        Trevi Fountain, exploring ancient history, gelato on every corner, and falling in love 
+                        all over again in one of the most beautiful cities on Earth! 💕
+                        <br><br>
+                        <strong style="font-size: 24px;">We're going to Rome! ✈️❤️</strong>
+                    </div>
+                </div>
+                
+                <div class="result-card" id="resultMadrid">
+                    <h3>💃 Your Next Adventure Awaits! 💃</h3>
+                    <div class="destination-reveal">Madrid, Spain! 🇪🇸</div>
+                    <div class="result-message">
+                        The vibrant heart of Spain is calling! Get ready for delicious tapas, flamenco dancing, 
+                        stunning architecture, lively nights, amazing art at the Prado, and experiencing the 
+                        passionate Spanish culture together! 💕
+                        <br><br>
+                        <strong style="font-size: 24px;">We're going to Madrid! ✈️❤️</strong>
+                    </div>
+                </div>
+                
+                <div class="result-card" id="resultAmsterdam">
+                    <h3>🚲 Your Next Adventure Awaits! 🚲</h3>
+                    <div class="destination-reveal">Amsterdam, Netherlands! 🇳🇱</div>
+                    <div class="result-message">
+                        The charming city of canals awaits us! Get ready for bike rides through picturesque streets, 
+                        beautiful tulips, cozy cafés, stunning museums, romantic canal cruises, and discovering 
+                        this magical city together! 💕
+                        <br><br>
+                        <strong style="font-size: 24px;">We're going to Amsterdam! ✈️❤️</strong>
+                    </div>
+                </div>
+            </div>
+            
             <div class="invitation" id="invitation">
                 <h2>You're Invited! 🎉</h2>
                 
@@ -533,6 +811,124 @@
             for (let i = 0; i < 25; i++) {
                 setTimeout(createFloatingHeart, i * 40);
             }
+        }
+
+        // Quiz functionality
+        let quizAnswers = {
+            paris: 0,
+            rome: 0,
+            madrid: 0,
+            amsterdam: 0
+        };
+        let currentQuestion = 1;
+
+        function showQuiz() {
+            const quiz = document.getElementById('quizContainer');
+            quiz.classList.add('show');
+            
+            // Reset quiz
+            quizAnswers = { paris: 0, rome: 0, madrid: 0, amsterdam: 0 };
+            currentQuestion = 1;
+            
+            // Reset all cards
+            document.querySelectorAll('.question-card').forEach((card, index) => {
+                if (index === 0) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.result-card').forEach(card => {
+                card.classList.remove('show');
+            });
+            
+            // Reset progress
+            updateProgress(1);
+            
+            // Scroll to quiz
+            setTimeout(() => {
+                quiz.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+            
+            // Create burst of hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createFloatingHeart, i * 50);
+            }
+        }
+
+        function nextQuestion(questionNum, answer) {
+            // Record answer
+            quizAnswers[answer]++;
+            
+            // Hide current question
+            document.querySelector(`[data-question="${questionNum}"]`).classList.remove('active');
+            
+            // Update progress
+            updateProgress(questionNum + 1);
+            
+            if (questionNum < 5) {
+                // Show next question
+                setTimeout(() => {
+                    document.querySelector(`[data-question="${questionNum + 1}"]`).classList.add('active');
+                }, 300);
+            } else {
+                // Show result
+                setTimeout(() => {
+                    showResult();
+                }, 300);
+            }
+        }
+
+        function updateProgress(step) {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index < step - 1) {
+                    dot.classList.add('completed');
+                } else if (index === step - 1) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        function showResult() {
+            // Find the destination with most votes
+            let maxVotes = 0;
+            let destination = 'paris';
+            
+            for (let dest in quizAnswers) {
+                if (quizAnswers[dest] > maxVotes) {
+                    maxVotes = quizAnswers[dest];
+                    destination = dest;
+                }
+            }
+            
+            // If there's a tie, randomly pick one of the tied destinations
+            let tiedDestinations = [];
+            for (let dest in quizAnswers) {
+                if (quizAnswers[dest] === maxVotes) {
+                    tiedDestinations.push(dest);
+                }
+            }
+            
+            if (tiedDestinations.length > 1) {
+                destination = tiedDestinations[Math.floor(Math.random() * tiedDestinations.length)];
+            }
+            
+            // Show the result card
+            const resultId = 'result' + destination.charAt(0).toUpperCase() + destination.slice(1);
+            document.getElementById(resultId).classList.add('show');
+            
+            // Massive heart burst!
+            for (let i = 0; i < 50; i++) {
+                setTimeout(createFloatingHeart, i * 30);
+            }
+            
+            // Scroll to result
+            setTimeout(() => {
+                document.getElementById(resultId).scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
         }
     </script>
 </body>
